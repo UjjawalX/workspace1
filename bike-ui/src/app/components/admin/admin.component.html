@@ -1,0 +1,25 @@
+<div class="container">
+    <table>
+        <tr>
+            <th>Owner name</th>
+            <th>Email</th>
+            <th>Model</th>
+            <th>Purchase Price</th>
+        </tr>
+        <tr *ngFor="let bike of bikes">
+            <td>
+                {{bike.name}}
+            </td>
+            <td>
+                {{bike.email}}
+            </td>
+            <td>
+                {{bike.model}}
+            </td>
+            <td>
+                {{bike.purchasePrice}}
+            </td>
+        </tr>
+    </table>
+
+</div>
