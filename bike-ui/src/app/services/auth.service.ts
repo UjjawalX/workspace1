@@ -5,18 +5,21 @@ import { Router } from "@angular/router";
 @Injectable()
 export class AuthService {
  auth0 = new auth0.WebAuth({
-     clientId: 'qJSJRQhzATgM38TVePO1OZojg76ClLbn',
-     domain: 'besra.auth0.com',
-     responseType: '',
-     audience: 'http://localhost:8080/',
+     clientID: 'Lku90tz02CjfSk64GevtVoVXi3X0rEme',
+     domain: 'besrau.auth0.com',
+     responseType: 'token id_token',
+     audience: 'http://localhost:8080',
      redirectUri: 'http://localhost:4200/callback',
-     scope: 'bike:regirstration bike:registrations'
+     scope: 'openid bike:registration bike:registrations'
  });
  constructor(public router: Router){
 
  }
-
  public login(): void {
+     this.auth0.authorize();
+ }
+
+ public handleAuthentication(): void {
     this.auth0.parseHash((err,authResult) => {
         if(authResult && authResult.accessToken && authResult.idToken) {
             window.location.hash = '';
@@ -31,7 +34,7 @@ export class AuthService {
 
  private setSession(authResult): void {
      const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new  Date().getTime());
-     localStorage.setItem('access_Token',authResult.access_Token);
+     localStorage.setItem('access_Token',authResult.accessToken);
      localStorage.setItem('id_token',authResult.idToken);
      localStorage.setItem('expires_at',expiresAt);
  }

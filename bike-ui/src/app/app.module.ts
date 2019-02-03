@@ -26,7 +26,7 @@ import { AuthGuard } from './services/auth.guard';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [BikeService,AuthService],
+  providers: [BikeService,AuthService,AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
