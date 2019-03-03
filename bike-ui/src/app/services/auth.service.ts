@@ -2,15 +2,18 @@ import { Injectable } from "@angular/core";
 import * as auth0 from "auth0-js";
 import { Router } from "@angular/router";
 
+const ACCESS_TOKEN = 'access_Token';
+const ID_TOKEN = 'id_token';
+const EXPIRES_AT = 'expires_at';
 @Injectable()
 export class AuthService {
  auth0 = new auth0.WebAuth({
-     clientID: 'Lku90tz02CjfSk64GevtVoVXi3X0rEme',
+     clientID: '7b95oepCdT7jeLtZUPPGYu8cIZFpa5BW',
      domain: 'besrau.auth0.com',
      responseType: 'token id_token',
-     audience: 'http://localhost:8080',
+     audience: 'http://localhost:8081',
      redirectUri: 'http://localhost:4200/callback',
-     scope: 'openid bike:registration bike:registrations'
+     scope: 'openid view:registration view:registrations'
  });
  constructor(public router: Router){
 
@@ -34,15 +37,15 @@ export class AuthService {
 
  private setSession(authResult): void {
      const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new  Date().getTime());
-     localStorage.setItem('access_Token',authResult.accessToken);
-     localStorage.setItem('id_token',authResult.idToken);
-     localStorage.setItem('expires_at',expiresAt);
+     localStorage.setItem(ACCESS_TOKEN,authResult.accessToken);
+     localStorage.setItem(ID_TOKEN,authResult.idToken);
+     localStorage.setItem(EXPIRES_AT,expiresAt);
  }
 
  public logout(): void{
-     localStorage.removeItem('accessToken');
-     localStorage.removeItem('id_token');
-     localStorage.removeItem('expires_at');
+     localStorage.removeItem(ACCESS_TOKEN);
+     localStorage.removeItem(ID_TOKEN);
+     localStorage.removeItem(EXPIRES_AT);
      this.router.navigate(['/']);
  }
 
